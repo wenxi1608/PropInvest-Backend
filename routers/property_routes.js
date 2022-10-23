@@ -8,5 +8,7 @@ router.get("/rental-transactions", propertyController.getRentalData);
 router.get("/median-rental-psf", propertyController.getMedianRentalPsfData);
 // Sale
 router.get("/sale-transactions", propertyController.getSaleData);
+// Project details
+router.get("/project-details", propertyController.getProjectDetails);
 
 module.exports = router;
