@@ -6,20 +6,27 @@ const validation = require("./validation_controller");
 module.exports = {
   register: async (req, res) => {
     // 1. Validations
+
     const formData = validation.register.validate(req.body);
 
     if (formData.error) {
-      return res.status(409).json({ error: formData.error.message });
+      return res.status(400).json({ error: formData.error.message });
     }
 
     const validatedValues = formData.value;
+    console.log("Validated Values:", req.body);
 
-    // 2. Check if user exists
-    const userExists = await db.user.findOne({
-      where: { email: validatedValues.email },
-    });
-    if (userExists !== null) {
-      return res.status(409).json({ error: "Email is taken" });
+    // 2. Check if email exists
+    try {
+      const userExists = await db.user.findOne({
+        where: { email: validatedValues.email },
+      });
+      console.log(userExists);
+      if (userExists) {
+        return res.status(400).json({ error: "Email is taken" });
+      }
+    } catch (err) {
+      return res.status(500).json({ error: "Unable to create account" });
     }
 
     // 3. Hash password
