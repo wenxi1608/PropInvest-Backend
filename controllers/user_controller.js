@@ -14,7 +14,6 @@ module.exports = {
     }
 
     const validatedValues = formData.value;
-    console.log("Validated Values:", req.body);
 
     // 2. Check if email exists
     try {
@@ -23,7 +22,9 @@ module.exports = {
       });
       console.log(userExists);
       if (userExists) {
-        return res.status(400).json({ error: "Email is taken" });
+        return res
+          .status(400)
+          .json({ error: "An account with this email exists" });
       }
     } catch (err) {
       return res.status(500).json({ error: "Unable to create account" });
@@ -61,34 +62,41 @@ module.exports = {
 
   login: async (req, res) => {
     // 1. Check if user email is in db and pwd matches
+    let userData = null;
+
     try {
       const user = await db.user.findOne({
         where: { email: req.body.email },
       });
 
-      const userData = {
+      userData = {
         firstName: user.dataValues.firstName,
         lastName: user.dataValues.lastName,
         email: user.dataValues.email.toLowerCase(),
       };
 
-      if (
-        user.dataValues &&
-        (await bcrypt.compare(req.body.password, user.dataValues.password))
-      ) {
-        // 2. Create token
-        const token = jwt.sign(
-          {
-            expiresIn: "2h",
-            data: userData,
-          },
-          process.env.JWT_SECRET
-        );
-        return res.json({ token });
+      const pwdMatch = await bcrypt.compare(
+        req.body.password,
+        user.dataValues.password
+      );
+
+      if (!userData || pwdMatch === false) {
+        return res.status(400).json({ error: "Invalid email or password" });
       }
     } catch (err) {
       return res.status(400).json({ error: "Invalid email or password" });
     }
+
+    // 2. Create token
+    const token = jwt.sign(
+      {
+        expiresIn: "2h",
+        data: userData,
+      },
+      process.env.JWT_SECRET
+    );
+
+    return res.json({ token });
   },
 
   auth: async (req, res, next) => {
