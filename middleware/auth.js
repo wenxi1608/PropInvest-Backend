@@ -2,7 +2,8 @@ const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
   // get Authentication header value
-  const authzHeader = req.header("Authorization");
+
+  const authzHeader = req.body.headers.Authorization;
   if (!authzHeader) {
     return res.status(401).json({
       message: "Authentication details empty",
@@ -26,11 +27,10 @@ module.exports = (req, res, next) => {
 
   // checking if token is signed by same secret and setting token info into global variable
   const verified = jwt.verify(token, process.env.JWT_SECRET);
-  console.log("Verfieid:", verified);
+  console.log("Verified:", verified);
 
   if (verified) {
     res.locals.userAuth = verified;
-    // console.log("verified: ", res.locals.userAuth);
     next();
     return;
   }

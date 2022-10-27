@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class watchlist extends Model {
     /**
@@ -10,14 +8,22 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      models.watchlist.belongsToMany(models.user, {
+        through: "userWatchlist",
+        // foreignKey: "watchlistId",
+        // otherKey: "watchlistId",
+        // as: "users",
+      });
     }
   }
-  watchlist.init({
-    projectName: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'watchlist',
-  });
+  watchlist.init(
+    {
+      projectName: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "watchlist",
+    }
+  );
   return watchlist;
 };

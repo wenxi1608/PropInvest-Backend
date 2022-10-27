@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const propertyRouter = require("./routers/property_routes");
 const userRouter = require("./routers/user_routes");
+const watchlistRouter = require("./routers/watchlist_routes");
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -21,8 +22,10 @@ app.use(
   })
 );
 
+// Routes
 app.use("/api/projects", propertyRouter);
 app.use("/api/users", userRouter);
+app.use("/api/watchlist", watchlistRouter);
 
 app.listen(port, async () => {
   console.log(`PropInvest backend listening on port ${port}`);
