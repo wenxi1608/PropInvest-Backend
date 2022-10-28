@@ -5,9 +5,6 @@ module.exports = {
   addToWatchlist: async (req, res) => {
     try {
       //1. Get user and project name
-      // const projectWatchlist = await db.watchlist.findOne({
-      //   where: { projectName: req.params.projectName },
-      // });
       const user = await db.user.findOne({
         where: { email: res.locals.userAuth.data.email },
       });
@@ -17,6 +14,7 @@ module.exports = {
           projectName: req.params.projectName,
         },
       });
+      console.log("Created:", created);
       // if project doesn't exist in watchlist table, create and tag to user
       if (created) {
         await user.addWatchlist(projectWatchlist);
@@ -29,36 +27,43 @@ module.exports = {
           watchlistId: projectWatchlist.dataValues.id,
         },
       });
-      if (!userWatchlist) {
-        await user.addWatchlist(projectWatchlist);
-        return res.json("Added to watchlist");
-      } else {
+
+      if (userWatchlist) {
         return res.json({ error: "Project exists in watchlist" });
       }
-
-      //   console.log("User Watchlist:", userWatchlist);
-      // }
-      //2. Check if the project exists in watchlist table
-
-      // if project doesn't exist,
-      // if(!projectWatchlist) {
-      //   const [watchlist, created] = await db.watchlist.findOrCreate({
-      //   where: { projectName: project },
-      //   defaults: {
-      //     projectName: project,
-      //   },
-
-      // const userTag = await db.user.findOne({
-      //   where: { email: email },
-      // });
-
-      // await userTag.addWatchlist(watchlist);
-
-      // console.log("User Tag:", userTag);
-      // console.log("Watchlist:", watchlist);
+      await user.addWatchlist(projectWatchlist);
+      return res.json("Added to watchlist");
     } catch (err) {
       console.log(err);
       return res.status(400).json({ error: "Unable to add to watchlist" });
+    }
+  },
+
+  getProjectsWatchedByUser: async (req, res) => {
+    const user = await db.user.findOne({
+      where: { email: res.locals.userAuth.data.email },
+    });
+
+    try {
+      const userWatchlist = await db.userWatchlist.findAll({
+        where: {
+          userId: user.dataValues.id,
+        },
+      });
+      const projIds = await userWatchlist.map((p) => {
+        return p.dataValues.watchlistId;
+      });
+      const listOfProjects = await db.watchlist.findAll({
+        where: {
+          id: projIds,
+        },
+      });
+      const allProj = listOfProjects.map((p) => {
+        return p.dataValues.projectName;
+      });
+      return res.json(allProj);
+    } catch (err) {
+      res.status(400).json({ error: "Unable to retrieve watchlist" });
     }
   },
 };

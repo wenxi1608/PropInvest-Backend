@@ -2,8 +2,10 @@ const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
   // get Authentication header value
+  // console.log("Body:", req.header("Authorization"));
+  const authzHeader = req.header("Authorization");
 
-  const authzHeader = req.body.headers.Authorization;
+  // const authzHeader = req.body.headers.Authorization;
   if (!authzHeader) {
     return res.status(401).json({
       message: "Authentication details empty",
