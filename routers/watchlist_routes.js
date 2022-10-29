@@ -8,10 +8,10 @@ router.get(
   authMiddleWare,
   watchlistController.getProjectsWatchedByUser
 );
-// router.post(
-//   "/:projectName",
-//   authMiddleWare,
-//   watchlistController.addToWatchlist
-// );
+router.post(
+  "/:projectName",
+  authMiddleWare,
+  watchlistController.addToWatchlist
+);
 
 module.exports = router;
