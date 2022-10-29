@@ -9,7 +9,7 @@ const basename = path.basename(__filename);
 // const config = require(__dirname + "/../config/config.json")[env];
 const db = {};
 
-const sequelize = new Sequelize(process.env.DB_URL);
+const sequelize = new Sequelize(process.env.DB_URL, postgres);
 sequelize
   .authenticate()
   .then(() => {
