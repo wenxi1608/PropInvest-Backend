@@ -84,7 +84,7 @@ module.exports = {
         return res.status(400).json({ error: "Invalid email or password" });
       }
     } catch (err) {
-      return res.status(400).json({ error: "Invalid email or password" });
+      return res.status(400).json({ error: "Catch error" });
     }
 
     // 2. Create token
