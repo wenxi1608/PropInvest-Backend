@@ -74,13 +74,6 @@ module.exports = {
       const tokenData = await tokenResponse.data;
       const token = tokenData.Result;
 
-      baseUrl = `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=`;
-      headers = {
-        headers: {
-          AccessKey: `${process.env.ACCESS_KEY}`,
-          Token: token,
-        },
-      };
       const firstQtr = await axios.get(
         `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=22q1`,
         {
