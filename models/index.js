@@ -9,14 +9,14 @@ const basename = path.basename(__filename);
 // const config = require(__dirname + "/../config/config.json")[env];
 const db = {};
 
-const sequelize = new Sequelize(process.env.DB_URL, postgres);
+const sequelize = new Sequelize(process.env.DB_URL);
 sequelize
   .authenticate()
   .then(() => {
-    console.log("Connected to database");
+    console.log("Connection has been established successfully.");
   })
   .catch((error) => {
-    console.error("Unable to connect to database:", error);
+    console.error("Unable to connect to the database: ", error);
   });
 
 // let sequelize;

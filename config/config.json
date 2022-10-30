@@ -1,7 +1,9 @@
 {
   "development": {
-    "database": "propInvest_development",
-    "host": "127.0.0.1",
+    "username": "kfqbchwi",
+    "password": "wZVW7gOxQlWTh2q8IjZtDvUz1xdYHQN6",
+    "database": "kfqbchwi",
+    "host": "tiny.db.elephantsql.com",
     "dialect": "postgres"
   },
   "test": {
