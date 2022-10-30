@@ -81,10 +81,42 @@ module.exports = {
           Token: token,
         },
       };
-      const firstQtr = await axios.get(`${baseUrl}22q1`, headers);
-      const secondQtr = await axios.get(`${baseUrl}22q2`, headers);
-      const thirdQtr = await axios.get(`${baseUrl}22q3`, headers);
-      const fourthQtr = await axios.get(`${baseUrl}21q4`, headers);
+      const firstQtr = await axios.get(
+        `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=22q1`,
+        {
+          headers: {
+            AccessKey: `${process.env.ACCESS_KEY}`,
+            Token: token,
+          },
+        }
+      );
+      const secondQtr = await axios.get(
+        `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=22q2`,
+        {
+          headers: {
+            AccessKey: `${process.env.ACCESS_KEY}`,
+            Token: token,
+          },
+        }
+      );
+      const thirdQtr = await axios.get(
+        `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=22q3`,
+        {
+          headers: {
+            AccessKey: `${process.env.ACCESS_KEY}`,
+            Token: token,
+          },
+        }
+      );
+      const fourthQtr = await axios.get(
+        `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q4`,
+        {
+          headers: {
+            AccessKey: `${process.env.ACCESS_KEY}`,
+            Token: token,
+          },
+        }
+      );
       const allQtrData = firstQtr.data.Result.concat(
         secondQtr.data.Result,
         thirdQtr.data.Result,
