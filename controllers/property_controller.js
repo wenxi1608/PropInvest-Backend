@@ -207,7 +207,7 @@ module.exports = {
 
   getProjectDetails: async (req, res) => {
     try {
-      const tokenResponse = await axios.get(
+      const tokenResponse = await fetch(
         `https://www.ura.gov.sg/uraDataService/insertNewToken.action`,
         {
           headers: {
@@ -215,7 +215,7 @@ module.exports = {
           },
         }
       );
-      const tokenData = await tokenResponse.data;
+      const tokenData = await tokenResponse.json();
       const token = tokenData.Result;
 
       const projectDetails = await Promise.all([
