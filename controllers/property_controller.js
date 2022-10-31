@@ -217,50 +217,56 @@ module.exports = {
       const tokenData = await tokenResponse.data;
       const token = tokenData.Result;
 
-      const firstQtr = await axios.get(
-        `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=22q1`,
-        {
-          headers: {
-            AccessKey: `${process.env.ACCESS_KEY}`,
-            Token: token,
-          },
-        }
-      );
-      const secondQtr = await axios.get(
-        `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=22q2`,
-        {
-          headers: {
-            AccessKey: `${process.env.ACCESS_KEY}`,
-            Token: token,
-          },
-        }
-      );
-      const thirdQtr = await axios.get(
-        `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=22q3`,
-        {
-          headers: {
-            AccessKey: `${process.env.ACCESS_KEY}`,
-            Token: token,
-          },
-        }
-      );
-      const fourthQtr = await axios.get(
-        `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q4`,
-        {
-          headers: {
-            AccessKey: `${process.env.ACCESS_KEY}`,
-            Token: token,
-          },
-        }
-      );
-      const allQtrData = firstQtr.data.Result.concat(
-        secondQtr.data.Result,
-        thirdQtr.data.Result,
-        fourthQtr.data.Result
-      );
-      const projectDetails = await allQtrData;
-      console.log("All Qtr:", projectDetails);
-      return res.json(projectDetails);
+      const projectDetails = await Promise.all([
+        axios.get(
+          `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q1`,
+          {
+            headers: {
+              AccessKey: `${process.env.ACCESS_KEY}`,
+              Token: token,
+            },
+          }
+        ),
+        axios.get(
+          `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q2`,
+          {
+            headers: {
+              AccessKey: `${process.env.ACCESS_KEY}`,
+              Token: token,
+            },
+          }
+        ),
+        axios.get(
+          `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q3`,
+          {
+            headers: {
+              AccessKey: `${process.env.ACCESS_KEY}`,
+              Token: token,
+            },
+          }
+        ),
+        axios.get(
+          `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q4`,
+          {
+            headers: {
+              AccessKey: `${process.env.ACCESS_KEY}`,
+              Token: token,
+            },
+          }
+        ),
+      ])
+        .then((response) => {
+          return response;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      let details = [];
+      for (let i = 0; i < projectDetails.length; i++) {
+        const newArray = projectDetails[i].data.Result;
+        details.push(...newArray);
+      }
+      return res.json(details);
     } catch (err) {
       console.log("Unable to get details", err);
     }
