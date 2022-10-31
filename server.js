@@ -30,7 +30,9 @@ app.use("/api/watchlist", watchlistRouter);
 const projectsController = require("./controllers/property_controller");
 app.get(
   "/api/projects/project-details",
-  cors(),
+  cors({
+    origin: "*",
+  }),
   projectsController.getProjectDetails
 );
 
