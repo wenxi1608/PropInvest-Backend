@@ -27,6 +27,13 @@ app.use("/api/projects", propertyRouter);
 app.use("/api/users", userRouter);
 app.use("/api/watchlist", watchlistRouter);
 
+const projectsController = require("./controllers/property_controller");
+app.get(
+  "/api/projects/project-details",
+  cors(),
+  projectsController.getProjectDetails
+);
+
 app.listen(port, async () => {
   console.log(`PropInvest backend listening on port ${port}`);
 });
