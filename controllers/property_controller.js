@@ -1,5 +1,6 @@
 const axios = require("axios");
 const cors = require("cors");
+const fetch = require("node-fetch");
 
 module.exports = {
   getRentalData2022: async (req, res) => {
@@ -218,7 +219,7 @@ module.exports = {
       const token = tokenData.Result;
 
       const projectDetails = await Promise.all([
-        axios.get(
+        fetch(
           `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q1`,
           {
             headers: {
@@ -227,7 +228,7 @@ module.exports = {
             },
           }
         ),
-        axios.get(
+        fetch(
           `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q2`,
           {
             headers: {
@@ -236,7 +237,7 @@ module.exports = {
             },
           }
         ),
-        axios.get(
+        fetch(
           `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q3`,
           {
             headers: {
@@ -245,7 +246,7 @@ module.exports = {
             },
           }
         ),
-        axios.get(
+        fetch(
           `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q4`,
           {
             headers: {
@@ -254,17 +255,12 @@ module.exports = {
             },
           }
         ),
-      ])
-        .then((response) => {
-          return response;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      ]);
+
       let details = [];
       for (let i = 0; i < projectDetails.length; i++) {
-        const newArray = projectDetails[i].data.Result;
-        details.push(...newArray);
+        const newArray = await projectDetails[i].json();
+        details.push(...newArray.Result);
       }
       return res.json(details);
     } catch (err) {
