@@ -13,5 +13,10 @@ router.post(
   authMiddleWare,
   watchlistController.addToWatchlist
 );
+router.delete(
+  "/delete/:projectName",
+  authMiddleWare,
+  watchlistController.deleteFromWatchlist
+);
 
 module.exports = router;

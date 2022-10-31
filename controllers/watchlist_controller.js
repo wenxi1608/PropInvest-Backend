@@ -66,4 +66,27 @@ module.exports = {
       res.status(400).json({ error: "Unable to retrieve watchlist" });
     }
   },
+
+  deleteFromWatchlist: async (req, res) => {
+    const user = await db.user.findOne({
+      where: { email: res.locals.userAuth.data.email },
+    });
+    console.log("User:", user);
+    const project = await db.watchlist.findOne({
+      where: { projectName: req.params.projectName },
+    });
+    console.log("Project:", project);
+
+    try {
+      await db.userWatchlist.destroy({
+        where: {
+          userId: user.dataValues.id,
+          watchlistId: project.dataValues.id,
+        },
+      });
+      return res.json("Deleted");
+    } catch (error) {
+      console.log("Can't delete. Error:", error);
+    }
+  },
 };
