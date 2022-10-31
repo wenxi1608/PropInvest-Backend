@@ -31,7 +31,7 @@ const projectsController = require("./controllers/property_controller");
 app.get(
   "/api/projects/project-details",
   cors({
-    origin: "*",
+    origin: "https://tame-cyan-fawn-sock.cyclic.app",
   }),
   projectsController.getProjectDetails
 );
