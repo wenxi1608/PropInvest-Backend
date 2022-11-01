@@ -198,7 +198,7 @@ module.exports = {
           },
         }
       );
-      const medianRentalPsfData = await medianRentalPsfResponse.data;
+      const medianRentalPsfData = medianRentalPsfResponse.data.Result;
       return res.json(medianRentalPsfData);
     } catch (err) {
       console.log("Unable to get median rental psf data");
