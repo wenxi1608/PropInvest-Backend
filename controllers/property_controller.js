@@ -218,51 +218,66 @@ module.exports = {
       const tokenData = await tokenResponse.json();
       const token = tokenData.Result;
 
-      const projectDetails = await Promise.all([
-        fetch(
-          `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q1`,
-          {
-            headers: {
-              AccessKey: `${process.env.ACCESS_KEY}`,
-              Token: token,
-            },
-          }
-        ),
-        fetch(
-          `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q2`,
-          {
-            headers: {
-              AccessKey: `${process.env.ACCESS_KEY}`,
-              Token: token,
-            },
-          }
-        ),
-        fetch(
-          `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q3`,
-          {
-            headers: {
-              AccessKey: `${process.env.ACCESS_KEY}`,
-              Token: token,
-            },
-          }
-        ),
-        fetch(
-          `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q4`,
-          {
-            headers: {
-              AccessKey: `${process.env.ACCESS_KEY}`,
-              Token: token,
-            },
-          }
-        ),
-      ]);
+      const projectDetails = await fetch(
+        `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q1`,
+        {
+          headers: {
+            AccessKey: `${process.env.ACCESS_KEY}`,
+            Token: token,
+          },
+        }
+      );
 
-      let details = [];
-      for (let i = 0; i < projectDetails.length; i++) {
-        const newArray = await projectDetails[i].json();
-        details.push(...newArray.Result);
-      }
-      return res.json(details);
+      const response = await projectDetails?.json();
+      console.log(response);
+      return res.json(response);
+      // return response.json();
+
+      // const projectDetails = await Promise.all([
+      //   fetch(
+      //     `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q1`,
+      //     {
+      //       headers: {
+      //         AccessKey: `${process.env.ACCESS_KEY}`,
+      //         Token: token,
+      //       },
+      //     }
+      //   ),
+      //   fetch(
+      //     `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q2`,
+      //     {
+      //       headers: {
+      //         AccessKey: `${process.env.ACCESS_KEY}`,
+      //         Token: token,
+      //       },
+      //     }
+      //   ),
+      //   fetch(
+      //     `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q3`,
+      //     {
+      //       headers: {
+      //         AccessKey: `${process.env.ACCESS_KEY}`,
+      //         Token: token,
+      //       },
+      //     }
+      //   ),
+      //   fetch(
+      //     `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q4`,
+      //     {
+      //       headers: {
+      //         AccessKey: `${process.env.ACCESS_KEY}`,
+      //         Token: token,
+      //       },
+      //     }
+      //   ),
+      // ]);
+
+      // let details = [];
+      // for (let i = 0; i < projectDetails.length; i++) {
+      //   const newArray = await projectDetails[i].json();
+      //   details.push(...newArray.Result);
+      // }
+      // return res.json(details);
     } catch (err) {
       console.log("Unable to get details", err);
     }
