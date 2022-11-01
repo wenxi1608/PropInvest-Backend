@@ -207,16 +207,16 @@ module.exports = {
 
   getProjectDetails: async (req, res) => {
     try {
-      // const tokenResponse = await fetch(
-      //   `https://www.ura.gov.sg/uraDataService/insertNewToken.action`,
-      //   {
-      //     headers: {
-      //       AccessKey: `${process.env.ACCESS_KEY}`,
-      //     },
-      //   }
-      // );
-      // const tokenData = await tokenResponse.json();
-      // const token = tokenData.Result;
+      const tokenResponse = await fetch(
+        `https://www.ura.gov.sg/uraDataService/insertNewToken.action`,
+        {
+          headers: {
+            AccessKey: `${process.env.ACCESS_KEY}`,
+          },
+        }
+      );
+      const tokenData = await tokenResponse.json();
+      const token = tokenData.Result;
       // const projectDetails = await fetch(
       //   `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q1`,
       //   {
