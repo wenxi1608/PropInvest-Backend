@@ -241,33 +241,33 @@ module.exports = {
             },
           }
         ),
-        fetch(
-          `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q2`,
-          {
-            headers: {
-              AccessKey: `${process.env.ACCESS_KEY}`,
-              Token: token,
-            },
-          }
-        ),
-        fetch(
-          `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q3`,
-          {
-            headers: {
-              AccessKey: `${process.env.ACCESS_KEY}`,
-              Token: token,
-            },
-          }
-        ),
-        fetch(
-          `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q4`,
-          {
-            headers: {
-              AccessKey: `${process.env.ACCESS_KEY}`,
-              Token: token,
-            },
-          }
-        ),
+        // fetch(
+        //   `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q2`,
+        //   {
+        //     headers: {
+        //       AccessKey: `${process.env.ACCESS_KEY}`,
+        //       Token: token,
+        //     },
+        //   }
+        // ),
+        // fetch(
+        //   `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q3`,
+        //   {
+        //     headers: {
+        //       AccessKey: `${process.env.ACCESS_KEY}`,
+        //       Token: token,
+        //     },
+        //   }
+        // ),
+        // fetch(
+        //   `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q4`,
+        //   {
+        //     headers: {
+        //       AccessKey: `${process.env.ACCESS_KEY}`,
+        //       Token: token,
+        //     },
+        //   }
+        // ),
       ]);
       let details = [];
       for (let i = 0; i < projectDetails.length; i++) {
