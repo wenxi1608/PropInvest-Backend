@@ -25,32 +25,32 @@ module.exports = {
           },
         }
       );
-      const secondQtr2022 = await axios.get(
-        `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=22q2`,
-        {
-          headers: {
-            AccessKey: `${process.env.ACCESS_KEY}`,
-            Token: token,
-          },
-        }
-      );
-      const thirdQtr2022 = await axios.get(
-        `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=22q3`,
-        {
-          headers: {
-            AccessKey: `${process.env.ACCESS_KEY}`,
-            Token: token,
-          },
-        }
-      );
-      const allQtrData = firstQtr2022.data.Result.concat(
-        secondQtr2022.data.Result,
-        thirdQtr2022.data.Result
-      );
-      const rentalData2022 = await allQtrData;
+      // const secondQtr2022 = await axios.get(
+      //   `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=22q2`,
+      //   {
+      //     headers: {
+      //       AccessKey: `${process.env.ACCESS_KEY}`,
+      //       Token: token,
+      //     },
+      //   }
+      // );
+      // const thirdQtr2022 = await axios.get(
+      //   `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=22q3`,
+      //   {
+      //     headers: {
+      //       AccessKey: `${process.env.ACCESS_KEY}`,
+      //       Token: token,
+      //     },
+      //   }
+      // );
+      // const allQtrData = firstQtr2022.data.Result.concat(
+      //   secondQtr2022.data.Result,
+      //   thirdQtr2022.data.Result
+      // );
+      const rentalData2022 = firstQtr2022.data.Result;
       return res.json(rentalData2022);
     } catch (err) {
-      console.log("Unable to get rental transaction data", err);
+      console.log("Unable to get 2022 rental transaction data", err);
     }
   },
 
@@ -76,42 +76,42 @@ module.exports = {
           },
         }
       );
-      const secondQtr2021 = await axios.get(
-        `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q2`,
-        {
-          headers: {
-            AccessKey: `${process.env.ACCESS_KEY}`,
-            Token: token,
-          },
-        }
-      );
-      const thirdQtr2021 = await axios.get(
-        `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q3`,
-        {
-          headers: {
-            AccessKey: `${process.env.ACCESS_KEY}`,
-            Token: token,
-          },
-        }
-      );
-      const fourthQtr2021 = await axios.get(
-        `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q4`,
-        {
-          headers: {
-            AccessKey: `${process.env.ACCESS_KEY}`,
-            Token: token,
-          },
-        }
-      );
-      const allQtrData = firstQtr2021.data.Result.concat(
-        secondQtr2021.data.Result,
-        thirdQtr2021.data.Result,
-        fourthQtr2021.data.Result
-      );
-      const rentalData2021 = await allQtrData;
+      // const secondQtr2021 = await axios.get(
+      //   `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q2`,
+      //   {
+      //     headers: {
+      //       AccessKey: `${process.env.ACCESS_KEY}`,
+      //       Token: token,
+      //     },
+      //   }
+      // );
+      // const thirdQtr2021 = await axios.get(
+      //   `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q3`,
+      //   {
+      //     headers: {
+      //       AccessKey: `${process.env.ACCESS_KEY}`,
+      //       Token: token,
+      //     },
+      //   }
+      // );
+      // const fourthQtr2021 = await axios.get(
+      //   `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=21q4`,
+      //   {
+      //     headers: {
+      //       AccessKey: `${process.env.ACCESS_KEY}`,
+      //       Token: token,
+      //     },
+      //   }
+      // );
+      // const allQtrData = firstQtr2021.data.Result.concat(
+      //   secondQtr2021.data.Result,
+      //   thirdQtr2021.data.Result,
+      //   fourthQtr2021.data.Result
+      // );
+      const rentalData2021 = firstQtr2021.data.Result;
       return res.json(rentalData2021);
     } catch (err) {
-      console.log("Unable to get rental transaction data", err);
+      console.log("Unable to get 2021 rental transaction data", err);
     }
   },
 
@@ -137,42 +137,42 @@ module.exports = {
           },
         }
       );
-      const secondQtr2020 = await axios.get(
-        `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=20q2`,
-        {
-          headers: {
-            AccessKey: `${process.env.ACCESS_KEY}`,
-            Token: token,
-          },
-        }
-      );
-      const thirdQtr2020 = await axios.get(
-        `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=20q3`,
-        {
-          headers: {
-            AccessKey: `${process.env.ACCESS_KEY}`,
-            Token: token,
-          },
-        }
-      );
-      const fourthQtr2020 = await axios.get(
-        `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=20q4`,
-        {
-          headers: {
-            AccessKey: `${process.env.ACCESS_KEY}`,
-            Token: token,
-          },
-        }
-      );
-      const allQtrData = firstQtr2020.data.Result.concat(
-        secondQtr2020.data.Result,
-        thirdQtr2020.data.Result,
-        fourthQtr2020.data.Result
-      );
-      const rentalData2020 = await allQtrData;
+      // const secondQtr2020 = await axios.get(
+      //   `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=20q2`,
+      //   {
+      //     headers: {
+      //       AccessKey: `${process.env.ACCESS_KEY}`,
+      //       Token: token,
+      //     },
+      //   }
+      // );
+      // const thirdQtr2020 = await axios.get(
+      //   `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=20q3`,
+      //   {
+      //     headers: {
+      //       AccessKey: `${process.env.ACCESS_KEY}`,
+      //       Token: token,
+      //     },
+      //   }
+      // );
+      // const fourthQtr2020 = await axios.get(
+      //   `https://www.ura.gov.sg/uraDataService/invokeUraDS?service=PMI_Resi_Rental&refPeriod=20q4`,
+      //   {
+      //     headers: {
+      //       AccessKey: `${process.env.ACCESS_KEY}`,
+      //       Token: token,
+      //     },
+      //   }
+      // );
+      // const allQtrData = firstQtr2020.data.Result.concat(
+      //   secondQtr2020.data.Result,
+      //   thirdQtr2020.data.Result,
+      //   fourthQtr2020.data.Result
+      // );
+      const rentalData2020 = firstQtr2020.data.Result;
       return res.json(rentalData2020);
     } catch (err) {
-      console.log("Unable to get rental transaction data", err);
+      console.log("Unable to get 2020 rental transaction data", err);
     }
   },
 
