@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         // otherKey: "watchlistId",
         // as: "watchlists",
       });
+      models.user.hasMany(models.calculator);
     }
   }
   user.init(
