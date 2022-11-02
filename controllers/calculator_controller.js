@@ -10,7 +10,6 @@ module.exports = {
       const user = await db.user.findOne({
         where: { email: res.locals.userAuth.data.email },
       });
-      console.log("User:", user);
 
       //2. create in calculator DB
       const created = await db.calculator.create({
@@ -28,6 +27,23 @@ module.exports = {
     } catch (error) {
       console.log(error);
       return res.status(400).json({ error: "Unable to create calculator" });
+    }
+  },
+
+  getCalculators: async (req, res) => {
+    try {
+      const user = await db.user.findOne({
+        where: { email: res.locals.userAuth.data.email },
+      });
+
+      const calculatorList = await db.calculator.findAll({
+        where: { userId: user.dataValues.id },
+      });
+      console.log("CalculatorList:", calculatorList);
+      return res.json(calculatorList);
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({ error: "Unable to get calculator list" });
     }
   },
 };
