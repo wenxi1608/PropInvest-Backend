@@ -14,6 +14,11 @@ router.put(
   authMiddleWare,
   calculatorController.updateIncomeExpense
 );
+router.delete(
+  "/delete-income-expense/:itemToDelete",
+  authMiddleWare,
+  calculatorController.deleteIncomeExpense
+);
 router.get(
   "/items/:projectName",
   authMiddleWare,

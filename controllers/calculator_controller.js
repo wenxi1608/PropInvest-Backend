@@ -122,4 +122,18 @@ module.exports = {
       return res.status(400).json({ error: "Unable to update item" });
     }
   },
+
+  deleteIncomeExpense: async (req, res) => {
+    try {
+      await db.calculatoritem.destroy({
+        where: {
+          id: req.params.itemToDelete,
+        },
+      });
+      return res.json("Deleted");
+    } catch (error) {
+      console.log("Can't delete. Error:", error);
+      return res.json({ error: "Unable to delete item" });
+    }
+  },
 };
