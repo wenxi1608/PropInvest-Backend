@@ -97,17 +97,17 @@ module.exports = {
   },
 
   updateIncomeExpense: async (req, res) => {
-    itemToUpdate = req.body.item;
+    itemToUpdate = req.body.itemId;
     valueToUpdate = req.body.editItems;
-    console.log(valueToUpdate);
-    console.log(itemToUpdate);
+    console.log("Value to update:", valueToUpdate);
+    console.log("Item to update:", itemToUpdate);
 
     try {
       const updatedItem = await db.calculatoritem.update(
         { ...valueToUpdate },
         {
           where: {
-            id: itemToUpdate.id,
+            id: itemToUpdate,
           },
           returning: true,
           plain: true,
