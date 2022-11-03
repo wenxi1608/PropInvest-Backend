@@ -66,6 +66,32 @@ module.exports = {
     }
   },
 
+  getProjectsWatchedByUserDetails: async (req, res) => {
+    const user = await db.user.findOne({
+      where: { email: res.locals.userAuth.data.email },
+    });
+
+    try {
+      const userWatchlist = await db.userWatchlist.findAll({
+        where: {
+          userId: user.dataValues.id,
+        },
+      });
+      const projIds = await userWatchlist.map((p) => {
+        return p.dataValues.watchlistId;
+      });
+      const listOfProjects = await db.watchlist.findAll({
+        where: {
+          id: projIds,
+        },
+      });
+      console.log("List:", listOfProjects);
+      return res.json(listOfProjects);
+    } catch (err) {
+      res.status(400).json({ error: "Unable to retrieve watchlist" });
+    }
+  },
+
   deleteFromWatchlist: async (req, res) => {
     const user = await db.user.findOne({
       where: { email: res.locals.userAuth.data.email },

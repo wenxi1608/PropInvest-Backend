@@ -99,11 +99,15 @@ module.exports = {
     return res.json({ token });
   },
 
-  auth: async (req, res, next) => {
+  userDetails: async (req, res) => {
+    console.log(req.body);
     try {
-      res.json(true);
+      const user = await db.user.findOne({
+        where: { email: res.locals.userAuth.data.email },
+      });
+      return res.json(user);
     } catch (error) {
-      return res.status(400).json({ error: "Not authorised" });
+      return res.json({ error: "Unable to find user" });
     }
   },
 };

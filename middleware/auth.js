@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
   } else {
     authzHeader = req.header("Authorization");
   }
-  console.log(authzHeader);
+  console.log("Auth Header:", authzHeader);
 
   // const authzHeader = req.body.headers.Authorization;
   if (!authzHeader) {

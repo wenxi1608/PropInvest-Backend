@@ -8,6 +8,11 @@ router.get(
   authMiddleWare,
   watchlistController.getProjectsWatchedByUser
 );
+router.get(
+  "/watched-projects",
+  authMiddleWare,
+  watchlistController.getProjectsWatchedByUserDetails
+);
 router.post(
   "/:projectName",
   authMiddleWare,
