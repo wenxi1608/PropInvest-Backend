@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       models.calculator.belongsTo(models.user, {
         foreignKey: "userId",
       });
+      models.calculator.hasMany(models.calculatoritem);
     }
   }
   calculator.init(
